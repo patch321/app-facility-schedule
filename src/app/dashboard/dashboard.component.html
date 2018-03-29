@@ -1,0 +1,31 @@
+<app-navbar></app-navbar>
+<div class="container">
+	<div class="row">
+		<div class="form-inline">
+			<div class="form-group col-sm-12">
+				<label for="sel1" class="col-sm-2">Select Facility:</label>
+				<select class="form-control col-sm-4" id="sel1">
+					<option *ngFor="let facility of facilities">{{facility.facilityName}}</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="form-inline">
+			<div class="form-group col-sm-12">
+				<label for="datetimepicker1" class="col-sm-2">Week Start Date:</label>
+				<div class='input-group date' id='datetimepicker1'>
+					<input type='text' class="form-control" style="width:200px;" />
+					<span class="input-group-addon">
+						<span class="glyphicon glyphicon-calendar"></span>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<button type="button" class="btn btn-primary col-sm-2 col-sm-offset-2" style="width: 200px">View Schedule</button>
+		</div>
+	</div>
+</div>
