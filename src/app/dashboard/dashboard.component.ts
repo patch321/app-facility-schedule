@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import 'rxjs';
 import { IMyDpOptions } from 'mydatepicker';
+import { TeammateSchedule } from '../shared/models/teammate-schedule.model';
 
 @Component({
 	selector: 'app-dashboard',
@@ -15,6 +16,7 @@ export class DashboardComponent implements OnInit {
 	public facilities: Facility[] = [];
 	public dateModel: DatepickerDate = { date: { year: 2018, month: 10, day: 9 } };
 	public myDatePickerOptions: IMyDpOptions = {dateFormat: 'mmm dd, yyyy'};
+	public schedules: TeammateSchedule[] = [];
 	public selectedFacility: Facility;
 
 	constructor(
@@ -36,7 +38,7 @@ export class DashboardComponent implements OnInit {
 
 	getFacilitySchedule(): void {
 		this.http.get(`http://scadevjobs.com/api/Schedules/${this.selectedFacility.facilityId}/` + this.constructDatePickerDate(this.dateModel)).subscribe(
-			res => console.log(res),
+			(res: any) => this.schedules = res.data,
 			err => console.log(err));
 	}
 

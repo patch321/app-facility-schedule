@@ -9,13 +9,15 @@ import { MyDatePickerModule } from 'mydatepicker';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
+import { ScheduleTableComponent } from './schedule-table/schedule-table.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    NavbarComponent
+    NavbarComponent,
+    ScheduleTableComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,27 @@
+<h5>Table is working</h5>
+<table class="table table-striped table-bordered table-condensed">
+	<thead>
+		<th>Teammate</th>
+		<th>Employee Type</th>
+		<th>Monday</th>
+		<th>Tuesday</th>
+		<th>Wednesday</th>
+		<th>Thursday</th>
+		<th>Friday</th>
+		<th>Saturday</th>
+		<th>Sunday</th>
+	</thead>
+	<tbody>
+		<tr *ngFor="let schedule of schedules">
+			<td>{{schedule.teammateName}}</td>
+			<td>{{schedule.teammateType}}</td>
+			<td>{{schedule.monday}}</td>
+			<td>{{schedule.tuesday}}</td>
+			<td>{{schedule.wednesday}}</td>
+			<td>{{schedule.thursday}}</td>
+			<td>{{schedule.friday}}</td>
+			<td>{{schedule.saturday}}</td>
+			<td>{{schedule.sunday}}</td>
+		</tr>
+	</tbody>
+</table>
