@@ -1,3 +1,11 @@
 .row {
 	margin-bottom: 10px;
 }
+
+.flex {
+	display: flex;
+}
+
+.flex-align-center {
+	align-items: center;
+}

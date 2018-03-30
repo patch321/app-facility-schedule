@@ -3,11 +3,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { MyDatePickerModule } from 'mydatepicker';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    MyDatePickerModule,
     RouterModule.forRoot([
       {
         path: 'dashboard',
