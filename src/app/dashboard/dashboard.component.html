@@ -19,17 +19,27 @@
 				<div class="col-sm-3">
 					<my-date-picker name="mydate" [options]="myDatePickerOptions" [(ngModel)]="dateModel" required></my-date-picker>
 				</div>
+				<h5 *ngIf="showRequiredWarning" class="col-sm-5" style="color:red">** 'Week Start Date' is required!</h5>
 			</div>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="col-sm-2 col-sm-offset-2">
-				<button (click)="getFacilitySchedule()" type="button" class="btn btn-primary">View Schedule</button>
+				<button *ngIf="!showSchedule" (click)="onSubmit()" type="button" class="btn btn-primary" style="width: 200px">View Schedule</button>
+				<button *ngIf="showSchedule" (click)="onSubmit()" type="button" class="btn btn-primary" style="width: 200px">Refresh</button>
 			</div>
 		</div>
 	</div>
-	<div class=row>
+	<div *ngIf="showSchedule" class=row style="margin: 0; margin-top: 20px">
 		<app-schedule-table [schedules]="this.schedules"></app-schedule-table>
+	</div>
+	<div *ngIf="showSchedule" class="row" style="color: red;">
+		<h5 *ngIf="count.monday < 2">** You have {{count.monday}} Anesthesiologist(s) scheduled for Monday</h5>
+		<h5 *ngIf="count.tuesday < 2">** You have {{count.tuesday}} Anesthesiologist(s) scheduled for Tuesday</h5>
+		<h5 *ngIf="count.wednesday < 2">** You have {{count.wednesday}} Anesthesiologist(s) scheduled for Wednesday</h5>
+		<h5 *ngIf="count.thursday < 2">** You have {{count.thursday}} Anesthesiologist(s) scheduled for Thursday</h5>
+		<h5 *ngIf="count.friday < 2">** You have {{count.friday}} Anesthesiologist(s) scheduled for Friday</h5>
+		<h5 *ngIf="count.saturday < 2">** You have {{count.saturday}} Anesthesiologist(s) scheduled for Saturday</h5>
 	</div>
 </div>

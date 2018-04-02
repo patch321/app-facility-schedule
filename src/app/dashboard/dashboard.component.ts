@@ -14,16 +14,21 @@ import { TeammateSchedule } from '../shared/models/teammate-schedule.model';
 export class DashboardComponent implements OnInit {
 
 	public facilities: Facility[] = [];
-	public dateModel: DatepickerDate = { date: { year: 2018, month: 10, day: 9 } };
+	public count = {monday:0, tuesday: 0, wednesday: 0, thursday: 0, friday: 0, saturday: 0, sunday: 0};
+	public currentDate = new Date();
+	public dateModel = new DatepickerDate();
 	public myDatePickerOptions: IMyDpOptions = {dateFormat: 'mmm dd, yyyy'};
 	public schedules: TeammateSchedule[] = [];
 	public selectedFacility: Facility;
+	public showRequiredWarning: boolean;
+	public showSchedule: boolean;
 
 	constructor(
 		private http: HttpClient
 	) { }
 
 	ngOnInit() {
+		this.dateModel = { date: { year: this.currentDate.getFullYear(), month: this.currentDate.getMonth(), day: this.currentDate.getDate() } };
 		this.getFacilityLocations();
 	}
 
@@ -37,15 +42,43 @@ export class DashboardComponent implements OnInit {
 	}
 
 	getFacilitySchedule(): void {
+		this.count = { monday: 0, tuesday: 0, wednesday: 0, thursday: 0, friday: 0, saturday: 0, sunday: 0 };
 		this.http.get(`http://scadevjobs.com/api/Schedules/${this.selectedFacility.facilityId}/` + this.constructDatePickerDate(this.dateModel)).subscribe(
 			(res: any) => this.schedules = res.data,
-			err => console.log(err));
+			err => console.log(err),
+			() => {
+				this.showSchedule = true;
+				this.provideWarning()});
 	}
 
 	constructDatePickerDate(dateModel: DatepickerDate): string {
 		return dateModel.date.month.toString() + "-"
 			+ dateModel.date.day.toString() + "-"
 			+ dateModel.date.year.toString();
+	}
+
+	provideWarning(): void {
+		this.schedules.map( schedule => {
+			if (schedule.teammateType === "Anesthesia"){
+				if(schedule.monday != "OFF"){ this.count.monday++}
+				if(schedule.tuesday != "OFF"){ this.count.tuesday++}
+				if (schedule.wednesday != "OFF") { this.count.wednesday++}
+				if (schedule.thursday != "OFF") { this.count.thursday++}
+				if(schedule.friday != "OFF"){ this.count.friday++}
+				if(schedule.saturday != "OFF"){ this.count.saturday++}
+				if(schedule.sunday != "OFF"){ this.count.sunday++}
+			}
+		})
+		console.log(this.count);
+	}
+
+	onSubmit(): void {
+		this.showRequiredWarning = false;
+		if(this.dateModel == null){
+			this.showRequiredWarning = true;
+		}else{
+			this.getFacilitySchedule();
+		}
 	}
 
 }
