@@ -1,5 +1,4 @@
 import { DatepickerDate } from './../shared/models/datepicker-date.model';
-import { ExportToCSV } from "@molteni/export-csv";
 import { Facility } from './../shared/models/facility.model';
 import { Component, OnInit } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -18,9 +17,9 @@ export class DashboardComponent implements OnInit {
 	public count = {monday:0, tuesday: 0, wednesday: 0, thursday: 0, friday: 0, saturday: 0, sunday: 0};
 	public currentDate = new Date();
 	public dateModel = new DatepickerDate();
-	public exporter = new ExportToCSV();
 	public myDatePickerOptions: IMyDpOptions = {dateFormat: 'mmm dd, yyyy'};
 	public schedules: TeammateSchedule[] = [];
+	public scheduleFile: any;
 	public selectedFacility: Facility;
 	public showRequiredWarning: boolean;
 	public showSchedule: boolean;
@@ -50,7 +49,8 @@ export class DashboardComponent implements OnInit {
 			err => console.log(err),
 			() => {
 				this.showSchedule = true;
-				this.provideWarning()});
+				this.provideWarning();
+			});
 	}
 
 	constructDatePickerDate(dateModel: DatepickerDate): string {
@@ -84,9 +84,21 @@ export class DashboardComponent implements OnInit {
 	}
 
 	onSave(): void {
-		this.exporter.exportAllToCSV(this.schedules, "Shedules-week of " 
-			+ this.dateModel.date.month + "-" + this.dateModel.date.day 
-			+ "-" + this.dateModel.date.year + ".csv");
-	}
+		const items = this.schedules
+		const replacer = (key, value) => value === null ? '' : value // specify how you want to handle null values here
+		const header = Object.keys(items[0])
+		let csv = items.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
+		csv.unshift(header.join(','))
+		var completedFile = csv.join('\r\n');
+		this.scheduleFile = encodeURI('data:application/csv;charset=UTF-8,' + completedFile);
+		var link = document.createElement("a");
+		link.setAttribute("href", this.scheduleFile);
+		link.setAttribute("download", "weekly-schedule-" 
+			+ this.selectedFacility.facilityName.replace(" ", "-").replace(" ", "-") 
+			+ "-" + this.constructDatePickerDate(this.dateModel) 
+			+ ".csv");
+		document.body.appendChild(link); // Required for FF
 
+		link.click(); // This will download the data file named "my_data.csv".
+	}
 }

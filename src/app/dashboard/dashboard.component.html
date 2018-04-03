@@ -38,9 +38,15 @@
 			</button>
 		</div>
 	</div>
+	
+	<!-- ---------------- SCHEDULE TABLE ------------------- -->
+
 	<div *ngIf="showSchedule" class=row style="margin: 0; margin-top: 20px">
 		<app-schedule-table [schedules]="this.schedules"></app-schedule-table>
 	</div>
+
+	<!-- ----------- Warning Messages --------------- -->
+
 	<div *ngIf="showSchedule" class="row" style="color: red;">
 		<h5 *ngIf="count.monday < 2">** You have {{count.monday}} Anesthesiologist(s) scheduled for Monday</h5>
 		<h5 *ngIf="count.tuesday < 2">** You have {{count.tuesday}} Anesthesiologist(s) scheduled for Tuesday</h5>
