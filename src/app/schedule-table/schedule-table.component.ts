@@ -17,4 +17,8 @@ export class ScheduleTableComponent implements OnInit {
 	ngOnInit() {
 	}
 
+	saveSchedules(): void {
+		
+	}
+
 }

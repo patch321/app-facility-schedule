@@ -1,4 +1,5 @@
 import { DatepickerDate } from './../shared/models/datepicker-date.model';
+import { ExportToCSV } from "@molteni/export-csv";
 import { Facility } from './../shared/models/facility.model';
 import { Component, OnInit } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -17,6 +18,7 @@ export class DashboardComponent implements OnInit {
 	public count = {monday:0, tuesday: 0, wednesday: 0, thursday: 0, friday: 0, saturday: 0, sunday: 0};
 	public currentDate = new Date();
 	public dateModel = new DatepickerDate();
+	public exporter = new ExportToCSV();
 	public myDatePickerOptions: IMyDpOptions = {dateFormat: 'mmm dd, yyyy'};
 	public schedules: TeammateSchedule[] = [];
 	public selectedFacility: Facility;
@@ -79,6 +81,12 @@ export class DashboardComponent implements OnInit {
 		}else{
 			this.getFacilitySchedule();
 		}
+	}
+
+	onSave(): void {
+		this.exporter.exportAllToCSV(this.schedules, "Shedules-week of " 
+			+ this.dateModel.date.month + "-" + this.dateModel.date.day 
+			+ "-" + this.dateModel.date.year + ".csv");
 	}
 
 }

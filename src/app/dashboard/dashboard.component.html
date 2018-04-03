@@ -31,6 +31,13 @@
 			</div>
 		</div>
 	</div>
+	<div *ngIf="showSchedule" class="row">
+		<div class="col-sm-12">
+			<button type="button" class="btn btn-default col-sm-1 col-sm-offset-11" aria-label="Left Align" (click)="onSave()">
+				<span class="glyphicon glyphicon-save" aria-hidden="true"></span> Save
+			</button>
+		</div>
+	</div>
 	<div *ngIf="showSchedule" class=row style="margin: 0; margin-top: 20px">
 		<app-schedule-table [schedules]="this.schedules"></app-schedule-table>
 	</div>
