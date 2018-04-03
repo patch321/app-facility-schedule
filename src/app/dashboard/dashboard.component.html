@@ -2,9 +2,9 @@
 <div class="container">
 	<div class="row">
 		<div class="form-inline">
-			<div class="form-group col-sm-12 flex flex-align-center">
-				<label for="sel1" class="col-sm-2">Select Facility:</label>
-				<div class="col-sm-3">
+			<div class="form-group col-xs-12 flex flex-align-center">
+				<label for="sel1" class="col-md-2 col-xs-3">Select Facility:</label>
+				<div class="col-md-3 col-xs-9">
 					<select class="form-control" style="width: 100%;" [(ngModel)]="selectedFacility" sel1>
 						<option *ngFor="let facility of facilities" [ngValue]="facility">{{facility.facilityName}}</option>
 					</select>
@@ -14,9 +14,9 @@
 	</div>
 	<div class="row">
 		<div class="form-inline">
-			<div class="form-group col-sm-12 flex flex-align-center">
-				<label for="mydate" class="col-sm-2">Week Start Date:</label>
-				<div class="col-sm-3">
+			<div class="form-group col-xs-12 flex flex-align-center">
+				<label for="mydate" class="col-md-2 col-xs-3">Week Start Date:</label>
+				<div class="col-md-3 col-xs-9">
 					<my-date-picker name="mydate" [options]="myDatePickerOptions" [(ngModel)]="dateModel" required></my-date-picker>
 				</div>
 				<h5 *ngIf="showRequiredWarning" class="col-sm-5" style="color:red">** 'Week Start Date' is required!</h5>
@@ -24,30 +24,34 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-sm-12">
-			<div class="col-sm-2 col-sm-offset-2">
-				<button *ngIf="!showSchedule" (click)="onSubmit()" type="button" class="btn btn-primary" style="width: 200px">View Schedule</button>
-				<button *ngIf="showSchedule" (click)="onSubmit()" type="button" class="btn btn-primary" style="width: 200px">Refresh</button>
+		<div class="col-xs-12">
+			<div class="col-sm-9 col-sm-offset-3 col-md-3 col-md-offset-2">
+				<button *ngIf="!showSchedule" (click)="onSubmit()" type="button" class="btn btn-primary col-xs-12">View Schedule</button>
+				<button *ngIf="showSchedule" (click)="onSubmit()" type="button" class="btn btn-primary col-xs-12">Refresh</button>
 			</div>
 		</div>
 	</div>
 	<div *ngIf="showSchedule" class="row">
-		<div class="col-sm-12">
-			<button type="button" class="btn btn-default col-sm-1 col-sm-offset-11" aria-label="Left Align" (click)="onSave()">
-				<span class="glyphicon glyphicon-save" aria-hidden="true"></span> Save
-			</button>
+		<div class="col-xs-12">
+			<div class="col-sm-2 col-sm-offset-10">
+				<button type="button" class="btn btn-default col-xs-12" aria-label="Left Align" (click)="onSave()">
+					<span class="glyphicon glyphicon-save" aria-hidden="true"></span> Save
+				</button>
+			</div>
 		</div>
 	</div>
-	
+
 	<!-- ---------------- SCHEDULE TABLE ------------------- -->
 
 	<div *ngIf="showSchedule" class=row style="margin: 0; margin-top: 20px">
-		<app-schedule-table [schedules]="this.schedules"></app-schedule-table>
+		<div class="col-xs-12">
+			<app-schedule-table [schedules]="this.schedules"></app-schedule-table>
+		</div>		
 	</div>
 
 	<!-- ----------- Warning Messages --------------- -->
 
-	<div *ngIf="showSchedule" class="row" style="color: red;">
+	<div *ngIf="showSchedule" class="row" style="color: red; margin-bottom: 200px;">
 		<h5 *ngIf="count.monday < 2">** You have {{count.monday}} Anesthesiologist(s) scheduled for Monday</h5>
 		<h5 *ngIf="count.tuesday < 2">** You have {{count.tuesday}} Anesthesiologist(s) scheduled for Tuesday</h5>
 		<h5 *ngIf="count.wednesday < 2">** You have {{count.wednesday}} Anesthesiologist(s) scheduled for Wednesday</h5>
